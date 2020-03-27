@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Shake dialer</title>
+        <script type="text/javascript">
+		
+        shakestate = 1;   //nello stato iniziale ho lo shake disattivato, con shake =1 significa che posso ascoltare lo shake
+
+        var onShake = function () {  // funzione che viene fatta partire quando rilevo uno shake
+        	phonedialer.dial(    //faccio partire una chiamata al numero salvato
+        		number,    //stringa contenente il numero da chiamare
+        		function(err) {    //funzione che viene fatta partire se si verifica un errore
+        			if (err == "empty") alert("Unknown phone number");   //messaggio nel caso di numero indefinito
+        			else alert("Dialer Error:" + err);    
+        		},
+        		function(success) { alert('Dialing succeeded'); } //messaggio visualizzato quando la chiamata va a buon fine
+        	);
+        };
+        
+        var onError = function () {  // funzione che viene fatta partire quando c'è un problema nell'accelerometro/shake
+        	alert("error");
+  		};
+  		
+		function shakechange(){   //funzione per cambiare lo stato del pulsante, disattivo o riabilito l'ascolto dell'evento shake
+			if (shakestate == 0){
+				shake.startWatch(onShake, sens , onError);
+				document.getElementById("shakebutton").value="stop shake";
+				document.getElementById("shakebutton").className = "stop-button";
+				
+			}
+			else {
+				shake.stopWatch();
+				document.getElementById("shakebutton").value="init shake";
+				document.getElementById("shakebutton").className = "start-button";
+			}
+			shakestate = !shakestate;
+		};
+		
+		function changenumber(numb){  //funzione che chiamo ogni volta che cambio numero impostato
+			if (isNaN(numb)){  //se provo a mettere come un numero un Not a number
+				alert("It's not a number");  //visualizzo un messaggio di errore
+				return;	  //non aggiorno il numero in memoria
+			}
+			
+			number = "" + numb; //converto il numero immesso in stringa, necessaria per la funzione dial
+
+			localStorage.setItem('saved_number', number);
+			document.getElementById("em_number").innerHTML = number;
+		};
+		
+		function changesens(s){  //funzione che chiamo ogni volta che cambio numero impostato
+			sens = s;  //sensibilità
+
+			localStorage.setItem('saved_sens', sens);    //aggiorno in memoria locale il nuovo valore di sensibilità
+			document.getElementById("shake_sens").innerHTML = sens;   //visualizzo il nuovo valore di sensibilità nel documento html 
+		};
+
+		function init() {  //init, mi metto in ascolto per l'evento device ready
+			document.addEventListener("deviceready", onDeviceReady, false);
+		};
+		function onDeviceReady() {  //quando l'hardware è pronto mi metto in ascolto per lo shake, importo i valori salvati nelle sessioni precedenti
+			number = localStorage.getItem('saved_number');   //estraggo dalla memoria locale il numero salvato nelle sessioni precedenti
+			sens = localStorage.getItem('saved_sens');    //estraggo dalla memoria locale la sensibilità 
+			
+			shake.startWatch(onShake, sens , onError  );   //avvio il gestore degli eventi shake, d'ora in poi è possibile ricevere eventi shake
+			
+			document.getElementById("em_number").innerHTML = number;  //visualizzo nei div i valori salvati in precedenza 
+			document.getElementById("shake_sens").innerHTML = sens;  
+		};
+		
+        </script>
+    </head>
+    
+    <body onload="init()">
+        <div class="app">
+            <h1>shakedialer</h1>
+            <div>
+               	<form>
+               	 	<input id="shakebutton" type="button" class="stop-button" onclick="shakechange()" value="stop shake"> 
+               	 	<br>
+               	 	<table>
+               	 	    <tr>
+               	 	        <td>
+               	 	           <input id="defaultnumber" type="text" name="number" value="" size="10"  maxlength="10">
+               	 	        </td>
+               	 	        <td>
+               	            	<input type="button" class="button" name="chn" value="change number" onclick="changenumber(this.form.number.value)" >
+               	 	        </td>
+               	 	    </tr>
+               	 	    <tr>
+               	 	       <td>              	 	       
+               	             	<select id="select" name="sensibility" size="1">
+               	             		<option value="10">10</option>
+               	             		<option value="20">20</option>
+               	             		<option value="30">30</option>
+               	             		<option value="40">40</option>
+               	             	</select>
+               	           </td>
+               	           <td>      
+               	           		<input type="button" class="button" name="select sens" value="change sensibility" onclick="changesens(this.form.select.value)" >
+               	           </td>
+               	       </tr>
+               	 </form>
+            </div>
+            <br>
+            <div align="center">Emergency number:</div>
+            <div id="em_number"> </div>
+            <br> 
+            <div align="center">Shake sensibility: </div>
+            <div id="shake_sens"></div>            
+        </div>
+        <script type="text/javascript"  src="cordova.js"></script> 
+        <!-- non uso più index.js, il device ready lo gestisco direttamente nello script principale-->
+    </body>
+</html>
+
+

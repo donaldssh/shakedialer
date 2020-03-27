@@ -1,0 +1,42 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com.teamnemitoff.phonedialer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-phonedialer@^0.3.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-shake": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-shake"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device-motion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device-motion@>=1.1.1"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-nativestorage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-nativestorage@^2.3.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

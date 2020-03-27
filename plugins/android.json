@@ -1,0 +1,28 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "com.teamnemitoff.phonedialer": {
+      "PACKAGE_NAME": "com.unibo.shakedialer"
+    },
+    "cordova-plugin-shake": {
+      "PACKAGE_NAME": "com.unibo.shakedialer"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.unibo.shakedialer"
+    },
+    "cordova-plugin-nativestorage": {
+      "PACKAGE_NAME": "com.unibo.shakedialer"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-device-motion": {
+      "PACKAGE_NAME": "com.unibo.shakedialer"
+    }
+  }
+}

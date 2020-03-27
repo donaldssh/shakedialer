@@ -1,0 +1,110 @@
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */    
+    background-color:#E4E4E4;    /*url(../img/sfondo.jpg);*/
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);  /*url(../img/sfondo.jpg);*/
+    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-size:12px;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    text-transform:uppercase;
+    width:100%;
+}
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.jpg) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+h1 {
+    font-size:20px;   /*standard era 24*/
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+/* 
+   per il pulsante con id="shakebutton" vengono usate 2 classi, 
+   in modo da permettere dinamicamente di cambiare la sua rappresentazione
+   con il codice css, in particolare a pressioni successive, lo sfondo del pulsante,
+   assumerà alternativamente i colori rosso e verde
+*/
+.stop-button {
+     background: rgb(202, 60, 60); /* this is a maroon */
+}
+.start-button{
+     background: rgb(28, 184, 65); /* this is a green */
+}
+/*
+   per i 2 bottoni del html 
+<input type="button" class="button" name="chn" value="change number" onclick="changenumber(this.form.number.value)" >
+<input type="button" class="button" name="select sens" value="change sensibility" onclick="changesens(this.form.select.value)" >
+ è stata usata la stessa classe, cosi da gestirli insieme in css, data la loro 
+ funzionalità molto simile
+*/
+
+.button{
+ display:inline-block;
+ padding:0.3em 1.2em;
+ margin:0 0.3em 0.3em 0;
+ border-radius:2em;
+ box-sizing: border-box;
+ text-decoration:none;
+ font-family:'Roboto',sans-serif;
+ font-weight:300;
+ color:#FFFFFF;
+ background-color:#4eb5f1;
+ text-align:center;
+ transition: all 0.2s;
+}
+.button:hover{
+ background-color:#4095c6;
+}
+
+/* 
+Il testo in cui verrà evidenziato il numero salvato
+abbiamo deciso semplicemente di visualizzarlo in rosso
+accedendo al suo ID
+*/
+
+#em_number{
+color:red;
+}
+
+ 
